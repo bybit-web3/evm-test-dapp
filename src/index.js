@@ -871,8 +871,7 @@ const initializeContracts = () => {
 // Must be called after the provider or connect acccounts change
 // Updates form elements content and disabled status
 const updateFormElements = () => {
-  const accountButtonsDisabled =
-    !isBybitInstalled() || !isBybitConnected();
+  const accountButtonsDisabled = !isBybitInstalled() || !isBybitConnected();
   if (accountButtonsDisabled) {
     for (const button of allConnectedButtons) {
       button.disabled = true;
