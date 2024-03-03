@@ -448,11 +448,11 @@ let provider;
 let accounts = [];
 let scrollToHandled = false;
 
-const isMetaMaskConnected = () => accounts && accounts.length > 0;
+const isBybitConnected = () => accounts && accounts.length > 0;
 let isWalletConnectConnected = false;
 
 // TODO: Need to align with @metamask/onboarding
-const isMetaMaskInstalled = () => provider && provider.isMetaMask;
+const isBybitInstalled = () => provider && provider.isBybit;
 
 // test id
 const projectId = 'e6360eaee594162688065f1c70c863b7';
@@ -460,7 +460,7 @@ const projectId = 'e6360eaee594162688065f1c70c863b7';
 const metadata = {
   name: 'E2e Test Dapp',
   description: 'This is the E2e Test Dapp',
-  url: 'https://metamask.github.io/test-dapp/',
+  url: 'https://bybit-web3.github.io/test-dapp/',
   icons: ['https://avatars.mywebsite.com/'],
 };
 
@@ -709,7 +709,7 @@ const closeProvider = () => {
   handleNewAccounts([]);
   handleNewChain('');
   handleNewNetwork('');
-  if (isMetaMaskInstalled()) {
+  if (isBybitInstalled()) {
     provider.removeListener('chainChanged', handleNewChain);
     provider.removeListener('chainChanged', handleEIP1559Support);
     provider.removeListener('chainChanged', handleNewNetwork);
@@ -724,7 +724,7 @@ const initializeProvider = async () => {
   initializeContracts();
   updateFormElements();
 
-  if (isMetaMaskInstalled()) {
+  if (isBybitInstalled()) {
     provider.autoRefreshOnNetworkChange = false;
     getNetworkAndChainId();
 
@@ -872,7 +872,7 @@ const initializeContracts = () => {
 // Updates form elements content and disabled status
 const updateFormElements = () => {
   const accountButtonsDisabled =
-    !isMetaMaskInstalled() || !isMetaMaskConnected();
+    !isBybitInstalled() || !isBybitConnected();
   if (accountButtonsDisabled) {
     for (const button of allConnectedButtons) {
       button.disabled = true;
@@ -886,7 +886,7 @@ const updateFormElements = () => {
     for (const button of walletConnectButtons) {
       button.disabled = false;
     }
-  } else if (isMetaMaskConnected()) {
+  } else if (isBybitConnected()) {
     for (const button of initialConnectedButtons) {
       button.disabled = false;
     }
@@ -915,7 +915,7 @@ const updateOnboardElements = () => {
     console.error(error);
   }
 
-  if (isMetaMaskInstalled()) {
+  if (isBybitInstalled()) {
     addEthereumChain.disabled = false;
     switchEthereumChain.disabled = false;
   } else {
@@ -928,7 +928,7 @@ const updateOnboardElements = () => {
     onboardButton.disabled = false;
   }
 
-  if (isMetaMaskConnected()) {
+  if (isBybitConnected()) {
     onboardButton.innerText = 'Connected';
     onboardButton.disabled = true;
     if (onboarding) {
